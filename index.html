@@ -3,157 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الألعاب الاحترافية</title>
+    <title>ألعاب منصور | تجربة احترافية</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
         :root {
-            --primary-color: #00f2fe;
-            --secondary-color: #4facfe;
-            --accent-color: #f093fb;
-            --bg-dark: #0f0c29;
+            --brand-green: #08542d;
+            --brand-blue: #013ea8;
+            --brand-gold: #d4923b;
+            --bg-dark: #020503; /* خلفية داكنة جداً مستمدة من الأخضر */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-dark);
             color: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-        }
-
-        /* خلفية متحركة خفيفة */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(79, 172, 254, 0.1), transparent);
-            z-index: -1;
-            animation: pulse 8s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+            /* خلفية متدرجة تعتمد فقط على الأخضر والأزرق */
+            background: radial-gradient(circle at top right, var(--brand-green), var(--bg-dark)),
+                        radial-gradient(circle at bottom left, var(--brand-blue), var(--bg-dark));
         }
 
         header {
-            margin-top: 50px;
+            margin-top: 40px;
             text-align: center;
-            perspective: 1000px;
+            z-index: 10;
+        }
+
+        /* صورة الشعار في الأعلى */
+        .main-logo {
+            max-width: 250px;
+            height: auto;
+            filter: drop-shadow(0 0 10px var(--brand-gold));
+            margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(0,242,254,0.4));
-            transform: rotateX(10deg);
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--brand-gold);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
         }
 
         .container {
             display: flex;
-            gap: 40px;
+            gap: 35px;
             justify-content: center;
             flex-wrap: wrap;
-            padding: 50px;
-            perspective: 1000px;
+            padding: 50px 20px;
+            max-width: 1200px;
         }
 
-        /* تصميم الكروت الثلاثي الأبعاد */
+        /* كرت اللعبة الموحد بالألوان المطلوبة */
         .game-card {
-            width: 300px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
             position: relative;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            overflow: hidden;
+            width: 300px;
+            height: 420px;
+            background: rgba(255, 255, 255, 0.03); /* زجاج شفاف */
+            border-radius: 25px;
+            border: 2px solid var(--brand-blue);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 35px 20px;
             text-decoration: none;
-            color: white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
         }
 
         .game-card:hover {
-            transform: translateY(-15px) rotateY(10deg) rotateX(5deg);
-            border-color: var(--primary-color);
-            box-shadow: 0 30px 60px rgba(0, 242, 254, 0.3);
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 30px rgba(212, 146, 59, 0.3);
+            transform: translateY(-10px);
         }
 
-        /* تأثير الضوء داخل الكرت */
-        .game-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
+        .game-card img {
+          
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            transform: translateZ(50px);
         }
 
-        .game-card:hover::after {
-            left: 100%;
-        }
-
-        .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
-        }
+        .info { text-align: center; transform: translateZ(30px); }
 
         .game-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
         }
 
         .game-desc {
-            font-size: 0.9rem;
-            color: #ccc;
-            padding: 0 20px;
-            text-align: center;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
         }
 
-        /* زر الدخول */
+        /* الأزرار بالألوان الجديدة */
         .play-btn {
-            margin-top: 25px;
-            padding: 10px 30px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
+            background: var(--brand-green);
             color: white;
+            border: 1px solid var(--brand-gold);
+            padding: 10px 35px;
+            border-radius: 12px;
+            font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
+            transform: translateZ(40px);
         }
 
         .game-card:hover .play-btn {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px var(--primary-color);
+            background: var(--brand-gold);
+            color: var(--brand-green);
+            box-shadow: 0 0 15px var(--brand-gold);
         }
 
-        /* تأثير خاص بلعبة الفانوس */
-        .lantern-glow {
-            color: #ffd700;
-            text-shadow: 0 0 20px #ffae00;
+        /* تذييل الصفحة */
+        footer {
+            margin-top: auto;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            border-top: 2px solid var(--brand-blue);
         }
 
-        /* تأثير خاص بلعبة الحروف */
-        .letters-style {
-            color: #00f2fe;
-            text-shadow: 0 0 15px #00f2fe;
+        .tiktok-link {
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .dev-tag {
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0.7;
         }
 
     </style>
@@ -161,57 +165,55 @@
 <body>
 
     <header>
-        <h1>مجموعة الإلعاب الجماعية</h1>
-        <p>اختر اللعبة بالضغط على ابدأ اللعبة</p>
+        <img src="https://raw.githubusercontent.com/iMans9/games/refs/heads/main/mansgalogo.png" alt="ألعاب منصور" class="main-logo">
+  
+        <p>ألعب مع عائلتك أو اصدقائك واستمتع</p>
     </header>
 
     <div class="container">
         
         <a href="https://imans9.github.io/horof/" class="game-card">
-            <img src="https://raw.githubusercontent.com/iMans9/games/refs/heads/main/logo-hororf.png" width="140px" height="140px">
-            <div class="game-title">لعبة الحروف</div>
-            <div class="game-desc">سباق الحروف لتوصيل مسار بين طرفين.</div>
-            <button class="play-btn">ابدأ اللعبة</button>
+            <img src="https://raw.githubusercontent.com/iMans9/games/refs/heads/main/logo-hororf.png" width="210px" height="140px" alt="الحروف">
+            <div class="info">
+                <div class="game-title">لعبة الحروف</div>
+                <div class="game-desc">سابق الزمن لتوصيل مسارك بين الحروف بنجاح.</div>
+            </div>
+            <button class="play-btn">ابدأ اللعب</button>
         </a>
 
         <a href="https://imans9.github.io/fanos/index.html" class="game-card">
-            <img src="https://raw.githubusercontent.com/iMans9/games/refs/heads/main/fanos-logo.png" width="240px" height="140px">
-            <div class="game-title">دوامة الحظ</div>
-            <div class="game-desc">لف الدوامة، خمن الحروف، واكسب الجوائز.</div>
-            <button class="play-btn">ابدأ اللعبة</button>
+            <img src="https://raw.githubusercontent.com/iMans9/games/refs/heads/main/fanos-logo.png" width="240px" height="140px" alt="الدوامة">
+            <div class="info">
+                <div class="game-title">دوامة الحظ</div>
+                <div class="game-desc">لف الدوامة وتوقع الحروف الصحيحة للفوز بالجوائز.</div>
+            </div>
+            <button class="play-btn">ابدأ اللعب</button>
         </a>
 
-
         <a href="https://imans9.github.io/top10" class="game-card">
-            <img src="https://raw.githubusercontent.com/iMans9/top10/refs/heads/main/top10.png" width="240px" height="140px">
-            <div class="game-title">توب 10</div>
-            <div class="game-desc">خمن اكثر اشياء وجمع نقاطها</div>
-            <button class="play-btn">ابدأ اللعبة</button>
+            <img src="https://raw.githubusercontent.com/iMans9/top10/refs/heads/main/top10.png" width="240px" height="140px" alt="توب 10">
+            <div class="info">
+                <div class="game-title">توب 10</div>
+                <div class="game-desc">خمن الإجابات الأكثر شعبية وتصدر قائمة المتصدرين.</div>
+            </div>
+            <button class="play-btn">ابدأ اللعب</button>
         </a>
 
     </div>
 
+    <footer>
+        <p>تابعنا على تيك توك للمزيد من الألعاب والتحديثات!</p>
+        <a href="https://www.tiktok.com/@mnsgam" class="tiktok-link">@mnsgam</a>
+        <div class="dev-tag">تم التطوير بواسطة العاب منصور</div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <script>
-        // إضافة تأثير تتبع حركة الماوس لجعل الكروت تتفاعل مع الزاوية
-        const cards = document.querySelectorAll('.game-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                let rect = card.getBoundingClientRect();
-                let x = e.clientX - rect.left;
-                let y = e.clientY - rect.top;
-                
-                let centerX = rect.width / 2;
-                let centerY = rect.height / 2;
-                
-                let rotateX = (y - centerY) / 10;
-                let rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
-            });
+        VanillaTilt.init(document.querySelectorAll(".game-card"), {
+            max: 10,
+            speed: 500,
+            glare: true,
+            "max-glare": 0.15,
         });
     </script>
 </body>
